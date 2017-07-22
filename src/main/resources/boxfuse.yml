@@ -1,0 +1,88 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 27706
+  adminConnectors:
+    - type: http
+      port: 27707
+  requestLog:
+    timeZone: IST
+    appenders:
+      - type: file
+        currentLogFilename: /var/log/flipkart/fk-cs-skynet/requests.log
+        archive: true
+        archivedLogFilenamePattern: /var/log/flipkart/fk-cs-skynet/requests-%d{yyyy-MM-dd}.log.gz
+        archivedFileCount: 50
+
+
+logging:
+  loggers:
+    level: DEBUG
+    org.hibernate.SQL: ALL
+  appenders:
+    - type: console
+      threshold: DEBUG
+      timeZone: IST
+      logFormat: "[%date] [%-5level] [%thread] [%X{uid} %X{id}] [%logger{10}] [%msg]%n"
+    - type: file
+      threshold: INFO
+      timeZone: IST
+      logFormat: "[%date] [%-5level] [%thread] [%X{uid} %X{id}] [%logger{10}] [%msg]%n"
+      currentLogFilename: /var/log/flipkart/fk-cs-skynet/skynet-info.log
+      archive: true
+      archivedLogFilenamePattern: /var/log/flipkart/fk-cs-skynet/skynet-info-%d{yyyy-MM-dd}.log.gz
+      archivedFileCount: 50
+    - type: file
+      threshold: ERROR
+      timeZone: IST
+      logFormat: "[%date] [%-5level] [%thread] [%X{uid} %X{id}] [%logger{10}] [%msg]%n"
+      currentLogFilename: /var/log/flipkart/fk-cs-skynet/skynet-error.log
+      archive: true
+      archivedLogFilenamePattern: /var/log/flipkart/fk-cs-skynet/skynet-error-%d{yyyy-MM-dd}.log.gz
+      archivedFileCount: 50
+
+
+rotationManagementConfig:
+  persistentFilePath: "/var/log/flipkart/fk-cs-skynet/rotation_status.txt"
+
+database:
+  # the name of your JDBC driver
+  driverClass: com.mysql.jdbc.Driver
+
+  # the username
+  user: root
+
+  # the password
+  password: flipkart@123
+
+  # the JDBC URL
+  url: jdbc:mysql://localhost:3306/mockathon?autoReconnect=true&relaxAutoCommit=true
+
+  # any properties specific to your JDBC driver:
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    hibernate.show_sql: true
+    hibernate.c3p0.min_size: 8
+    hibernate.c3p0.max_size: 32
+    hibernate.c3p0.timeout: 1800
+    hibernate.jdbc.batch_size: 10
+
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 1s
+
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+#
+#  # the minimum number of connections to keep open
+#  minSize: 8
+#
+#  # the maximum number of connections to keep open
+#  maxSize: 32
+
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: false
+
+
+template: Hello, %s!
+defaultName: Stranger
