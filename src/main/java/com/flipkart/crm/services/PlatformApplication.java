@@ -1,16 +1,10 @@
 package com.flipkart.crm.services;
 
+import com.flipkart.crm.entity.user.Company;
 import com.flipkart.crm.entity.user.Customer;
 import com.flipkart.crm.services.configuration.PlatformConfiguration;
-import com.flipkart.crm.services.guice.PlatformModule;
 import com.flipkart.crm.services.healthCheck.AppInRotationHealthCheck;
-import com.flipkart.crm.services.resources.CustomerResource;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.Stage;
-import com.hubspot.dropwizard.guice.GuiceBundle;
-import com.hubspot.dropwizard.guice.InjectorFactory;
-import com.netflix.governator.guice.LifecycleInjector;
+
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
@@ -24,7 +18,7 @@ import java.util.List;
  */
 public class PlatformApplication extends Application<PlatformConfiguration> {
 
-    private final GuiceBundle<PlatformConfiguration> guiceBundle = GuiceBundle.<PlatformConfiguration>newBuilder()
+    /*private final GuiceBundle<PlatformConfiguration> guiceBundle = GuiceBundle.<PlatformConfiguration>newBuilder()
             .setConfigClass(PlatformConfiguration.class)
             .enableAutoConfig(getClass().getPackage().getName())
             .setInjectorFactory((stage, modules) -> LifecycleInjector.builder()
@@ -33,9 +27,9 @@ public class PlatformApplication extends Application<PlatformConfiguration> {
                     .build()
                     .createInjector())
             .addModule(new PlatformModule())
-            .build();
+            .build();*/
 
-    private final HibernateBundle<PlatformConfiguration> hibernateBundle = new HibernateBundle<PlatformConfiguration>(Customer.class) {
+    private final HibernateBundle<PlatformConfiguration> hibernateBundle = new HibernateBundle<PlatformConfiguration>(Company.class) {
         public DataSourceFactory getDataSourceFactory(PlatformConfiguration configuration) {
             return configuration.getDataSourceFactory();
         }
@@ -44,7 +38,7 @@ public class PlatformApplication extends Application<PlatformConfiguration> {
     @Override
     public void initialize(Bootstrap<PlatformConfiguration> bootstrap) {
         bootstrap.addBundle(hibernateBundle);
-        bootstrap.addBundle(guiceBundle);
+        //bootstrap.addBundle(guiceBundle);
     }
 
     public static void main(String[] args) throws Exception {

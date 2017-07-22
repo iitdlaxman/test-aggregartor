@@ -42,9 +42,6 @@ logging:
       archivedFileCount: 50
 
 
-rotationManagementConfig:
-  persistentFilePath: "/var/log/flipkart/fk-cs-skynet/rotation_status.txt"
-
 database:
   # the name of your JDBC driver
   driverClass: com.mysql.jdbc.Driver

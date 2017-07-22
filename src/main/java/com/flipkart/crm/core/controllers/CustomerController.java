@@ -8,7 +8,7 @@ import com.flipkart.crm.entity.exception.ResponseCode;
 import com.flipkart.crm.entity.request.CustomerInfoRequest;
 import com.flipkart.crm.entity.response.CustomerInfoResponse;
 import com.flipkart.crm.entity.user.Customer;
-import com.google.inject.Inject;
+//import com.google.inject.Inject;
 import org.eclipse.jetty.http.HttpStatus;
 
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class CustomerController {
 
     private CustomerDAO customerDAO;
 
-    @Inject
+    //@Inject
     public CustomerController(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }

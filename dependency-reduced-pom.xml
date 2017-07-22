@@ -50,9 +50,9 @@
     </plugins>
   </build>
   <properties>
-    <dropwizard-guice.version>0.7.2</dropwizard-guice.version>
+    <dropwizard-guice.version>0.8.2.0</dropwizard-guice.version>
     <governator.version>1.3.3</governator.version>
-    <dropwizard.version>0.7.0-rc3</dropwizard.version>
+    <dropwizard.version>0.8.2</dropwizard.version>
     <lombok.version>1.12.4</lombok.version>
   </properties>
 </project>
