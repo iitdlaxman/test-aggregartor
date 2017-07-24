@@ -37,6 +37,7 @@ public class Customer {
     private Company company;
     private String status;
     private int balance;
+    @Transient
     private List<Attribute> attributes;
 
     public Customer() {

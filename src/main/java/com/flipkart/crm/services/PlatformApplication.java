@@ -2,16 +2,12 @@ package com.flipkart.crm.services;
 
 import com.flipkart.crm.entity.user.Company;
 import com.flipkart.crm.entity.user.Customer;
+import com.flipkart.crm.entity.user.Location;
+import com.flipkart.crm.entity.user.Role;
 import com.flipkart.crm.services.configuration.PlatformConfiguration;
 import com.flipkart.crm.services.healthCheck.AppInRotationHealthCheck;
 import com.flipkart.crm.services.guice.PlatformModule;
-import com.flipkart.crm.services.healthCheck.AppInRotationHealthCheck;
-import com.flipkart.crm.services.resources.CustomerResource;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.Stage;
 import com.hubspot.dropwizard.guice.GuiceBundle;
-import com.hubspot.dropwizard.guice.InjectorFactory;
 import com.netflix.governator.guice.LifecycleInjector;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -26,6 +22,12 @@ import java.util.List;
  */
 public class PlatformApplication extends Application<PlatformConfiguration> {
 
+    private final HibernateBundle<PlatformConfiguration> hibernateBundle = new HibernateBundle<PlatformConfiguration>(Customer.class, Role.class, Location.class, Company.class) {
+        public DataSourceFactory getDataSourceFactory(PlatformConfiguration configuration) {
+            return configuration.getDataSourceFactory();
+        }
+    };
+
     private final GuiceBundle<PlatformConfiguration> guiceBundle = GuiceBundle.<PlatformConfiguration>newBuilder()
             .setConfigClass(PlatformConfiguration.class)
             .enableAutoConfig(getClass().getPackage().getName())
@@ -34,14 +36,8 @@ public class PlatformApplication extends Application<PlatformConfiguration> {
                     .withModules(modules)
                     .build()
                     .createInjector())
-            .addModule(new PlatformModule())
+            .addModule(new PlatformModule(hibernateBundle))
             .build();
-
-    private final HibernateBundle<PlatformConfiguration> hibernateBundle = new HibernateBundle<PlatformConfiguration>(Customer.class) {
-        public DataSourceFactory getDataSourceFactory(PlatformConfiguration configuration) {
-            return configuration.getDataSourceFactory();
-        }
-    };
 
     @Override
     public void initialize(Bootstrap<PlatformConfiguration> bootstrap) {

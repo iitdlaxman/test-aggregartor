@@ -1,6 +1,7 @@
 package com.flipkart.crm.dao;
 
 import com.flipkart.crm.entity.user.Customer;
+import com.google.inject.Inject;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -12,7 +13,7 @@ import java.util.Optional;
  */
 public class CustomerDAO extends AbstractDAO<Customer> {
 
-
+    @Inject
     public CustomerDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
