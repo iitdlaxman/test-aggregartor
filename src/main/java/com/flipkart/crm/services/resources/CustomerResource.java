@@ -5,7 +5,7 @@ import com.flipkart.crm.entity.exception.PlatformException;
 import com.flipkart.crm.entity.request.CustomerInfoRequest;
 import com.flipkart.crm.entity.response.CustomerInfoResponse;
 import com.flipkart.crm.services.annotations.Secured;
-//import com.google.inject.Inject;
+import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,7 +24,7 @@ public class CustomerResource {
 
     private CustomerController customerController;
 
-    //@Inject
+    @Inject
     public CustomerResource(String template,
                             CustomerController customerController) {
         this.customerController = customerController;

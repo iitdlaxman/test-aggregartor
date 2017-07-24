@@ -1,7 +1,7 @@
 package com.flipkart.crm.services.resources;
 
 import com.flipkart.crm.core.controllers.InterviewController;
-//import com.google.inject.Inject;
+import com.google.inject.Inject;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,7 +20,7 @@ public class InterviewResource {
 
     private InterviewController interviewController;
 
-   // @Inject
+    @Inject
     public InterviewResource(InterviewController interviewController) {
         this.interviewController = interviewController;
     }

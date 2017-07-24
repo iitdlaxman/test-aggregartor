@@ -47,7 +47,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.36</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>com.hubspot.dropwizard</groupId>
             <artifactId>dropwizard-guice</artifactId>
             <version>${dropwizard-guice.version}</version>
@@ -61,8 +61,8 @@
                     <artifactId>guice</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
-       <!-- <dependency>
+        </dependency>
+        <dependency>
             <groupId>com.netflix.governator</groupId>
             <artifactId>governator</artifactId>
             <version>${governator.version}</version>
@@ -76,7 +76,7 @@
                     <artifactId>asm-all</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
