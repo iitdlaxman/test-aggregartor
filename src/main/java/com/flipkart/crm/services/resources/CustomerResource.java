@@ -6,6 +6,7 @@ import com.flipkart.crm.entity.request.CustomerInfoRequest;
 import com.flipkart.crm.entity.response.CustomerInfoResponse;
 import com.flipkart.crm.services.annotations.Secured;
 import com.google.inject.Inject;
+import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -40,14 +41,23 @@ public class CustomerResource {
 
     @GET
     @Path("/")
+    @UnitOfWork
     public CustomerInfoResponse getCustomer(Integer customerId) throws PlatformException { //todo : move to session
-        return customerController.getCustomerDetails(customerId);
+        return customerController.getCustomerDetails(1);
     }
 
     @PUT
     @Path("/")
+    @UnitOfWork
     public void createCustomer(CustomerInfoRequest customerInfoRequest) throws Exception {
         customerController.createCustomerDetails(customerInfoRequest);
+    }
+
+    @POST
+    @Path("/")
+    @UnitOfWork
+    public void updateCustomer(CustomerInfoRequest customerInfoRequest) throws Exception {
+        customerController.updateCustomerDetails(customerInfoRequest);
     }
 
     /*@GET

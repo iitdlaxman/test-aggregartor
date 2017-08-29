@@ -1,5 +1,8 @@
 package com.flipkart.crm.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 /**
@@ -11,6 +14,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private String id;
 
     @Column(name = "title", nullable = false)
@@ -21,10 +25,11 @@ public class Role {
     public Role() {
     }
 
+    @JsonIgnore
     public String getId() {
         return id;
     }
-
+    @JsonProperty
     public void setId(String id) {
         this.id = id;
     }

@@ -48,6 +48,15 @@ public class CustomerController {
         }
     }
 
+    public void updateCustomerDetails(CustomerInfoRequest customerInfoRequest) throws PlatformException {
+        String output;
+        try {
+            customerDAO.update(customerInfoRequest.getCustomer());
+        } catch (Exception e) {
+            throw new PlatformException(ResponseCode.UNABLE_TO_CREATE_CUSTOMER, e);
+        }
+    }
+
 
 
 }

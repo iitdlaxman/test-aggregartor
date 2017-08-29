@@ -2,6 +2,7 @@ package com.flipkart.crm.entity.user;
 
 
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -15,9 +16,9 @@ public class Slot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime fromTime;
-
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime tiTime;
 
     public Slot() {

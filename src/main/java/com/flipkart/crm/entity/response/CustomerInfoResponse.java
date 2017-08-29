@@ -1,10 +1,15 @@
 package com.flipkart.crm.entity.response;
 
-import com.flipkart.crm.entity.Attribute;
-import com.flipkart.crm.entity.user.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.flipkart.crm.entity.interview.Interview;
+import com.flipkart.crm.entity.interview.Request;
+import com.flipkart.crm.entity.user.*;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by laxman.muttineni on 10/07/17.

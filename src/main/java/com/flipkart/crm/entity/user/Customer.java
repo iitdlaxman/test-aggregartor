@@ -4,24 +4,34 @@ package com.flipkart.crm.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.flipkart.crm.entity.Attribute;
+import com.flipkart.crm.entity.interview.Interview;
+import com.flipkart.crm.entity.interview.Request;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Vikram Aditya on 6/23/2017.
  */
 @Entity
 @Table(name="Customer")
+/*
+@DynamicUpdate
+@SelectBeforeUpdate(value=true)
+*/
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @JsonIgnore
+    private Integer id;
+    private String accountId;
     private String firstName;
     private String lastName;
     private String contact;
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateOfJoining;
     private String email;
     @ManyToOne
@@ -37,17 +47,46 @@ public class Customer {
     private Company company;
     private String status;
     private int balance;
-    @Transient
-    private List<Attribute> attributes;
+
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private Set<Attribute> attributes;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private List<SkillRating> skillRatings;
+
+   /* @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private List<CXRating> cxRatings;
+*/
+    @OneToMany(mappedBy = "candidateId", fetch = FetchType.EAGER)
+    private List<Interview> candidature;
+
+    @OneToMany(mappedBy = "interviewerId", fetch = FetchType.EAGER)
+    private List<Interview> interviews;
+
+    @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    private List<Request> requests;
+
+    @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    private List<Qualifications> qualifications;
 
     public Customer() {
     }
 
-    public String getId() {
+    public boolean equals(Customer o) {
+        if(o.id == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @JsonIgnore
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    @JsonProperty
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -141,11 +180,59 @@ public class Customer {
         this.balance = balance;
     }
 
-    public List<Attribute> getAttributes() {
+    public Set<Attribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
+    public void setAttributes(Set<Attribute> attributes) {
         this.attributes = attributes;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public List<SkillRating> getSkillRatings() {
+        return skillRatings;
+    }
+
+    public void setSkillRatings(List<SkillRating> skillRatings) {
+        this.skillRatings = skillRatings;
+    }
+
+    public List<Interview> getCandidature() {
+        return candidature;
+    }
+
+    public void setCandidature(List<Interview> candidature) {
+        this.candidature = candidature;
+    }
+
+    public List<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(List<Interview> interviews) {
+        this.interviews = interviews;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
+
+    public List<Qualifications> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(List<Qualifications> qualifications) {
+        this.qualifications = qualifications;
     }
 }

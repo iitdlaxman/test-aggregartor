@@ -22,6 +22,10 @@ public class CustomerDAO extends AbstractDAO<Customer> {
         return persist(customer);
     }
 
+    public Customer update(Customer customer) {
+        return (customer);
+    }
+
     public Optional<Customer> findById(Integer id) {
         return Optional.ofNullable(get(id));
     }

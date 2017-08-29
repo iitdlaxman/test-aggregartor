@@ -1,9 +1,7 @@
 package com.flipkart.crm.services;
 
-import com.flipkart.crm.entity.user.Company;
-import com.flipkart.crm.entity.user.Customer;
-import com.flipkart.crm.entity.user.Location;
-import com.flipkart.crm.entity.user.Role;
+import com.flipkart.crm.entity.interview.*;
+import com.flipkart.crm.entity.user.*;
 import com.flipkart.crm.services.configuration.PlatformConfiguration;
 import com.flipkart.crm.services.healthCheck.AppInRotationHealthCheck;
 import com.flipkart.crm.services.guice.PlatformModule;
@@ -15,14 +13,15 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-import java.util.List;
-
 /**
  * Created by laxman.muttineni on 18/07/17.
  */
 public class PlatformApplication extends Application<PlatformConfiguration> {
 
-    private final HibernateBundle<PlatformConfiguration> hibernateBundle = new HibernateBundle<PlatformConfiguration>(Customer.class, Role.class, Location.class, Company.class) {
+    private final HibernateBundle<PlatformConfiguration> hibernateBundle = new HibernateBundle<PlatformConfiguration>(Customer.class, Role.class,
+            Location.class, Company.class, Attribute.class, SkillRating.class, CXRating.class, Interview.class, Request.class, Qualifications.class,
+            Skill.class, Channel.class, Degree.class, Institute.class, Slot.class, InterviewEvaluation.class, InterviewRating.class,
+            RequestToSlot.class) {
         public DataSourceFactory getDataSourceFactory(PlatformConfiguration configuration) {
             return configuration.getDataSourceFactory();
         }
