@@ -11,7 +11,7 @@ public class BaseResponse {
 
     private static final String SUCCESS = "SUCCESS";
 
-    private String token;
+    private String traceId;
 
     private int statusCode;
 
@@ -27,12 +27,12 @@ public class BaseResponse {
         this.message = message;
     }
 
-    public String getToken() {
-        return token;
+    public String getTraceId() {
+        return traceId;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
     }
 
     public int getStatusCode() {

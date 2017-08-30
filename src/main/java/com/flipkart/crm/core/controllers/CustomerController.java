@@ -2,12 +2,15 @@ package com.flipkart.crm.core.controllers;
 
 
 import com.flipkart.crm.core.factories.CustomerFactory;
+import com.flipkart.crm.core.util.Constants;
+import com.flipkart.crm.core.util.Validator;
 import com.flipkart.crm.dao.CustomerDAO;
 import com.flipkart.crm.entity.exception.PlatformException;
 import com.flipkart.crm.entity.exception.ResponseCode;
 import com.flipkart.crm.entity.request.CustomerInfoRequest;
 import com.flipkart.crm.entity.response.CustomerInfoResponse;
 import com.flipkart.crm.entity.user.Customer;
+import com.flipkart.crm.entity.user.UserIdentifierType;
 import com.google.inject.Inject;
 import org.eclipse.jetty.http.HttpStatus;
 
@@ -25,15 +28,11 @@ public class CustomerController {
         this.customerDAO = customerDAO;
     }
 
-    public CustomerInfoResponse getCustomerDetails(Integer customerId) throws PlatformException {
-        Optional<Customer> customerOptional;
-        try {
-            customerOptional  = customerDAO.findById(customerId);
-            if(!customerOptional.isPresent()) {
-                throw new PlatformException(HttpStatus.BAD_REQUEST_400, ResponseCode.CUSTOMER_NOT_EXISTS);
-            }
-        } catch (Exception e) {
-            throw new PlatformException(ResponseCode.INTERNAL_SERVER_ERROR, e);
+    public CustomerInfoResponse getCustomerDetails(String param) throws PlatformException {
+        UserIdentifierType userIdentifierType = Validator.getUserIdentifer(param);
+        Optional<Customer> customerOptional = customerDAO.findByRestriction(userIdentifierType.getValue(), param);
+        if(!customerOptional.isPresent()) {
+            throw new PlatformException(HttpStatus.BAD_REQUEST_400, ResponseCode.CUSTOMER_NOT_EXISTS);
         }
         return CustomerFactory.prepareCustomerInfoResponse(customerOptional.get());
     }
@@ -57,6 +56,10 @@ public class CustomerController {
         }
     }
 
-
+    public Optional<Customer> registeredDetails(String param,
+                                                String password) throws PlatformException {
+        UserIdentifierType userIdentifierType = Validator.getUserIdentifer(param);
+        return customerDAO.isRegistered(userIdentifierType.getValue(), param, password);
+    }
 
 }

@@ -4,8 +4,10 @@ import com.flipkart.crm.core.controllers.CustomerController;
 import com.flipkart.crm.entity.exception.PlatformException;
 import com.flipkart.crm.entity.request.CustomerInfoRequest;
 import com.flipkart.crm.entity.response.CustomerInfoResponse;
+import com.flipkart.crm.entity.session.Session;
 import com.flipkart.crm.services.annotations.Secured;
 import com.google.inject.Inject;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
@@ -26,24 +28,21 @@ public class CustomerResource {
     private CustomerController customerController;
 
     @Inject
-    public CustomerResource(String template,
-                            CustomerController customerController) {
+    public CustomerResource(CustomerController customerController) {
         this.customerController = customerController;
     }
 
     @GET
     @Path("/test/")
     public String sayHello(@QueryParam("name") String name) {
-        /*Map<String, String> result = new HashMap<String, String>();
-        result.put("hello", String.format(template, name.orElse("stranger")));*/
         return "bigggg";
     }
 
     @GET
     @Path("/")
     @UnitOfWork
-    public CustomerInfoResponse getCustomer(Integer customerId) throws PlatformException { //todo : move to session
-        return customerController.getCustomerDetails(1);
+    public CustomerInfoResponse getCustomer(@Auth Session session) throws PlatformException {
+        return customerController.getCustomerDetails(session.getAccountId());
     }
 
     @PUT
@@ -60,21 +59,4 @@ public class CustomerResource {
         customerController.updateCustomerDetails(customerInfoRequest);
     }
 
-    /*@GET
-    @Path("/")
-    public CustomerInfoResponse getCustomer() throws PlatformException {
-        return customerController.getCustomerDetails();
-    }
-
-    @POST
-    @Path("/")
-    public CustomerInfoResponse updateCustomer() throws Exception {
-        return customerController.getCustomerDetails();
-    }
-
-    @POST
-    @Path("/validate")
-    public void validateCustomer() throws Exception {
-        customerController.getCustomerDetails();
-    }*/
 }

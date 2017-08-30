@@ -30,6 +30,11 @@ public class CustomerDAO extends AbstractDAO<Customer> {
         return Optional.ofNullable(get(id));
     }
 
+    public Optional<Customer> findByAccountId(String accountId) {
+        return Optional.ofNullable((Customer) currentSession().createCriteria(Customer.class)
+                .add(Restrictions.eq("accountId", accountId)).uniqueResult());
+    }
+
     public Optional<Customer> findByEmail(String email) {
         return Optional.ofNullable((Customer) currentSession().createCriteria(Customer.class)
                 .add(Restrictions.eq("email", email)).uniqueResult());
@@ -38,6 +43,20 @@ public class CustomerDAO extends AbstractDAO<Customer> {
     public Optional<Customer> findByContact(String contact) {
         return Optional.ofNullable((Customer) currentSession().createCriteria(Customer.class)
                 .add(Restrictions.eq("contact", contact)).uniqueResult());
+    }
+
+    public Optional<Customer> findByRestriction(String key,
+                                                String value) {
+        return Optional.ofNullable((Customer) currentSession().createCriteria(Customer.class)
+                .add(Restrictions.eq(key, value)).uniqueResult());
+    }
+
+    public Optional<Customer> isRegistered(String userIdType,
+                                           String user,
+                                           String password) {
+        return Optional.ofNullable((Customer) currentSession().createCriteria(Customer.class)
+                .add(Restrictions.eq(userIdType, user))
+                .add(Restrictions.eq("password", password)).uniqueResult());
     }
 
 }

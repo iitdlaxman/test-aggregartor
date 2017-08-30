@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flipkart.crm.entity.interview.Interview;
 import com.flipkart.crm.entity.interview.Request;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -50,24 +52,30 @@ public class Customer {
 
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private Set<Attribute> attributes;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<SkillRating> skillRatings;
 
    /* @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<CXRating> cxRatings;
 */
     @OneToMany(mappedBy = "candidateId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Interview> candidature;
 
     @OneToMany(mappedBy = "interviewerId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Interview> interviews;
 
     @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Request> requests;
 
     @OneToMany(mappedBy = "customerId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Qualifications> qualifications;
 
     public Customer() {

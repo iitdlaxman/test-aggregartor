@@ -6,5 +6,7 @@ package com.flipkart.crm.entity.exception;
 public enum ResponseCode {
     INTERNAL_SERVER_ERROR,
     CUSTOMER_NOT_EXISTS,
+    SESSION_LIMIT_EXPIRED,
+    INVALID_CREDENTIALS,
     UNABLE_TO_CREATE_CUSTOMER
 }

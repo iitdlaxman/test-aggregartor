@@ -25,7 +25,7 @@ public class InterviewController {
     }
 
     public RequestInterviewResponse createInterviewRequest(Request request) {
-        request.setCustomerId();
+        //request.setCustomerId();
         request.setStatus(RequestStatus.REQUESTED);
         request.setRemaining(request.getCount());
         Request createdRequest = requestDAO.create(request);
